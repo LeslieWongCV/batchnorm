@@ -13,7 +13,7 @@ Created on Mon Aug  6 13:17:50 2018
 """
 
 from __future__ import print_function, division
-import h5py  #导入工具包mpfan
+import h5py  
 import numpy as np
 from glob import glob
 from keras.models import load_model
@@ -23,7 +23,7 @@ import os
 import keras
 import time 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'     
-#output_path = os.path.join('..','input')        #?
+#output_path = os.path.join('..','input')        
 import matplotlib.pyplot as plt
 from skimage.util import montage #change montage2d to montage 
 #from skimage.util.montage import montage2d      #from skimage.util import montage
@@ -36,8 +36,8 @@ with h5py.File( 'all_patches.hdf5', 'r') as luna_h5:
 '''
 plt.figure()
 ax1 = plt.subplot2grid((3, 3), (0, 0), colspan=3)
-ax1.plot([1, 2], [1, 3])    # 画小图
-ax1.set_title('ax1_title')  # 设置小图的标题
+ax1.plot([1, 2], [1, 3])    # sub
+ax1.set_title('ax1_title')  # title of sub
 ax2 = plt.subplot2grid((3, 3), (1, 0), colspan=2)
 ax3 = plt.subplot2grid((3, 3), (1, 2), rowspan=2)
 ax4 = plt.subplot2grid((3, 3), (2, 0))
@@ -116,7 +116,7 @@ def SqueezeNet(input_tensor=None, input_shape=None,
 
     if weights == 'imagenet' and classes != 1000:
         raise ValueError('If using `weights` as imagenet with `include_top`'
-                         ' as true, `classes` should be 1000')                                      #already fixed?
+                         ' as true, `classes` should be 1000')                                      #already fixed
 
     if input_tensor is None:
         raw_img_input = Input(shape=input_shape)
@@ -159,7 +159,7 @@ def SqueezeNet(input_tensor=None, input_shape=None,
     x = Activation('relu', name='relu_conv10')(x)
     x = GlobalAveragePooling2D()(x)
 
-    out = Activation('softmax', name='loss')(x)#softmax分类函数
+    out = Activation('softmax', name='loss')(x)
 #    out = Dense(1, activation='softmax', name='loss')(x)
 
     # Ensure that the model takes into account
@@ -222,11 +222,11 @@ loss_history = []
 for i in range(40):
     print('Training %d/_'%i)
         
-    loss_history += [lung_node_cnn.fit(X_train, y_train,#输入数据
-                                validation_data=(X_test, y_test),#制定验证集
-                               shuffle = True,#表示是否在每个epoch前打乱输入样本的顺序
+    loss_history += [lung_node_cnn.fit(X_train, y_train,
+                                validation_data=(X_test, y_test),
+                               shuffle = True,
                                batch_size = 100,
-                               epochs = 1)]#本函数用以训练模型
+                               epochs = 1)]
     
     
 
@@ -280,11 +280,11 @@ for train_index, val_index in kf.split(X_vec):
         
  #   for i in range(40):
         
-        loss_history += [lung_node_cnn.fit(X_train, y_train,#输入数据
-                                validation_data=(X_test, y_test),#制定验证集
-                               shuffle = True,#表示是否在每个epoch前打乱输入样本的顺序
+        loss_history += [lung_node_cnn.fit(X_train, y_train,
+                                validation_data=(X_test, y_test),
+                               shuffle = True,
                                batch_size = 32,
-                               epochs = 2)]#本函数用以训练模型
+                               epochs = 2)]
     
  ############################################################
 
@@ -312,11 +312,11 @@ plt.show'''
     '''
 '''for i in range(60):
     
-    loss_history += [lung_node_cnn.fit(X_train, y_train,#输入数据
+    loss_history += [lung_node_cnn.fit(X_train, y_train,
         validation_data=(X_test, y_test),#制定验证集
-                               shuffle = True,#表示是否在每个epoch前打乱输入样本的顺序
+                               shuffle = True,
                                batch_size = 32,
-                               epochs = 1)]#本函数用以训练模型
+                               epochs = 1)]
     print('training:%d'%i)     
 
 '''
@@ -389,8 +389,8 @@ fpr, tpr, thresholds = roc_curve(np.argmax(y_test, 1), y_pred_proba[:,1])
 pylab.show()
 fig, ax1 = plt.subplots(1,1)
 ax1.plot(fpr, tpr, 'r-.', label = 'CNN (%2.2f)' % auc(fpr, tpr))
-ax1.set_xlabel('False Positive Rate')#假阳性率
-ax1.set_ylabel('True Positive Rate')#真阳性率
+ax1.set_xlabel('False Positive Rate')
+ax1.set_ylabel('True Positive Rate')
 ax1.plot(fpr, fpr, 'b-', label = 'Random Guess')
 ax1.legend()
 #plt.savefig('/Users/leslie/助研-wong/pic.png')
